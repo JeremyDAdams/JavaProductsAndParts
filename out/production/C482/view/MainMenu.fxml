@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="968.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+   <children>
+      <SplitPane dividerPositions="0.18090452261306533" layoutX="-4.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="970.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="40.0" prefWidth="598.0">
+               <children>
+                  <Label layoutX="39.0" layoutY="13.0" style="-fx-font-weight: bold;" text="Inventory Management System" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="283.0" minWidth="0.0" prefHeight="350.0" prefWidth="598.0">
+               <children>
+                  <AnchorPane layoutX="26.0" prefHeight="295.0" prefWidth="444.0">
+                     <children>
+                        <Pane prefHeight="295.0" prefWidth="444.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                           <children>
+                              <TableView layoutX="12.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="416.0" style="-fx-border-color: lightblue;">
+                                <columns>
+                                  <TableColumn prefWidth="52.0" text="Part ID" />
+                                  <TableColumn prefWidth="76.0" text="Part Name" />
+                                    <TableColumn minWidth="0.0" prefWidth="129.0" text="Inventory Level" />
+                                    <TableColumn minWidth="0.0" prefWidth="171.0" text="Price/ Cost per Unit" />
+                                </columns>
+                              </TableView>
+                              <Label style="-fx-font-weight: bold;" text="Parts">
+                                 <padding>
+                                    <Insets bottom="3.0" left="20.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                              <TextField alignment="CENTER" layoutX="-8.0" layoutY="-6.0" prefHeight="28.0" prefWidth="147.0" promptText="Search by Part ID or Name" translateX="280.0" translateY="10.0">
+                                 <padding>
+                                    <Insets left="2.0" right="2.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </TextField>
+                              <Button layoutX="272.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionAddPart" text="Add" />
+                              <Button layoutX="320.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionModifyPart" text="Modify" />
+                              <Button layoutX="378.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="516.0" prefHeight="295.0" prefWidth="450.0">
+                     <children>
+                        <Pane prefHeight="295.0" prefWidth="444.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
+                           <children>
+                              <TableView layoutX="12.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="416.0" style="-fx-border-color: lightblue;">
+                                 <columns>
+                                    <TableColumn prefWidth="83.0" text="Product ID" />
+                                    <TableColumn prefWidth="95.0" text="Product Name" />
+                                    <TableColumn minWidth="0.0" prefWidth="96.0" text="Inventory Level" />
+                                    <TableColumn minWidth="0.0" prefWidth="154.0" text="Price/ Cost per Unit" />
+                                 </columns>
+                              </TableView>
+                              <Label style="-fx-font-weight: bold;" text="Products">
+                                 <padding>
+                                    <Insets bottom="3.0" left="20.0" top="15.0" />
+                                 </padding>
+                              </Label>
+                              <TextField alignment="CENTER" layoutX="-28.0" layoutY="-6.0" prefHeight="28.0" prefWidth="167.0" promptText="Search by Product ID or Name" translateX="280.0" translateY="10.0">
+                                 <padding>
+                                    <Insets left="2.0" right="2.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </TextField>
+                              <Button layoutX="272.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionAddProduct" text="Add" />
+                              <Button layoutX="320.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionModifyProduct" text="Modify" />
+                              <Button layoutX="376.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Button layoutX="839.0" layoutY="371.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
+   </children>
+</AnchorPane>
