@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ModifyPartController implements Initializable {
+    public Label modMachineOrCompanyLbl;
     Stage stage;
     Parent scene;
 
@@ -30,5 +32,15 @@ public class ModifyPartController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+
+    @FXML
+    void houseBtnClick(ActionEvent actionEvent) {
+        modMachineOrCompanyLbl.setText("Machine ID");
+    }
+
+    @FXML
+    void outSourcedBtnClick(ActionEvent actionEvent) {
+        modMachineOrCompanyLbl.setText("Company Name");
     }
 }
