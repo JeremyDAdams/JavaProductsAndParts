@@ -39,8 +39,8 @@
               </columns>
             </TableView>
             <Button layoutX="765.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" text="Remove Associated Part" />
-            <Button layoutX="765.0" layoutY="453.0" mnemonicParsing="false" text="Save" />
-            <Button layoutX="872.0" layoutY="453.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+            <Button layoutX="765.0" layoutY="453.0" mnemonicParsing="false" onAction="#saveBtnClick" text="Save" />
+            <Button layoutX="872.0" layoutY="453.0" mnemonicParsing="false" onAction="#cancelBtnClick" text="Cancel" />
          </children>
       </AnchorPane>
    </children>

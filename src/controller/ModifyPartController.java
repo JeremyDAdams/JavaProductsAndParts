@@ -27,7 +27,7 @@ public class ModifyPartController implements Initializable {
     }
 
     @FXML
-    void onActionCancel(ActionEvent event) throws IOException {
+    void cancelBtnClick(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
         stage.setScene(new Scene(scene));
@@ -42,5 +42,8 @@ public class ModifyPartController implements Initializable {
     @FXML
     void outSourcedBtnClick(ActionEvent actionEvent) {
         modMachineOrCompanyLbl.setText("Company Name");
+    }
+
+    public void saveBtnClick(ActionEvent actionEvent) {
     }
 }
