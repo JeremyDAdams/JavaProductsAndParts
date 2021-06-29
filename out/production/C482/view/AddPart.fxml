@@ -30,7 +30,7 @@
       <TextField layoutX="178.0" layoutY="321.0" />
       <Label layoutX="358.0" layoutY="287.0" text="Min" />
       <TextField layoutX="393.0" layoutY="283.0" />
-      <Button layoutX="337.0" layoutY="346.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="406.0" layoutY="346.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+      <Button layoutX="337.0" layoutY="346.0" mnemonicParsing="false" onAction="#saveBtnClick" text="Save" />
+      <Button layoutX="406.0" layoutY="346.0" mnemonicParsing="false" onAction="#cancelBtnClick" text="Cancel" />
    </children>
 </AnchorPane>

@@ -34,4 +34,10 @@ public class AddProductController implements Initializable {
 
     public void saveBtnClick(ActionEvent actionEvent) {
     }
+
+    public void removeBtnClick(ActionEvent actionEvent) {
+    }
+
+    public void addBtnClick(ActionEvent actionEvent) {
+    }
 }

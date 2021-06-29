@@ -29,7 +29,7 @@
                   <TableColumn prefWidth="145.0" text="Price/ Cost per Unit" />
               </columns>
             </TableView>
-            <Button layoutX="814.0" layoutY="211.0" mnemonicParsing="false" text="Add" />
+            <Button layoutX="814.0" layoutY="211.0" mnemonicParsing="false" onAction="#addBtnClick" text="Add" />
             <TableView layoutX="513.0" layoutY="250.0" prefHeight="125.0" prefWidth="411.0">
               <columns>
                 <TableColumn prefWidth="74.0" text="Part ID" />
@@ -38,7 +38,7 @@
                   <TableColumn prefWidth="146.0" text="Price/ Cost per Unit" />
               </columns>
             </TableView>
-            <Button layoutX="765.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" text="Remove Associated Part" />
+            <Button layoutX="765.0" layoutY="400.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" onAction="#removeBtnClick" text="Remove Associated Part" />
             <Button layoutX="765.0" layoutY="453.0" mnemonicParsing="false" onAction="#saveBtnClick" text="Save" />
             <Button layoutX="872.0" layoutY="453.0" mnemonicParsing="false" onAction="#cancelBtnClick" text="Cancel" />
          </children>
