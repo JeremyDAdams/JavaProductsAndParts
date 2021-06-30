@@ -19,7 +19,7 @@
                      <children>
                         <Pane prefHeight="295.0" prefWidth="444.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
                            <children>
-                              <TableView layoutX="12.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="416.0" style="-fx-border-color: lightblue;">
+                              <TableView fx:id="partsTableView" layoutX="12.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="416.0" style="-fx-border-color: lightblue;">
                                 <columns>
                                   <TableColumn fx:id="partsIdCol" prefWidth="52.0" text="Part ID" />
                                   <TableColumn fx:id="partsNameCol" prefWidth="76.0" text="Part Name" />
@@ -51,7 +51,7 @@
                      <children>
                         <Pane prefHeight="295.0" prefWidth="444.0" style="-fx-border-color: black; -fx-border-radius: 15px;">
                            <children>
-                              <TableView layoutX="12.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="416.0" style="-fx-border-color: lightblue;">
+                              <TableView fx:id="productsTableView" layoutX="12.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="416.0" style="-fx-border-color: lightblue;">
                                  <columns>
                                     <TableColumn fx:id="prodIdCol" prefWidth="83.0" text="Product ID" />
                                     <TableColumn fx:id="prodNameCol" prefWidth="95.0" text="Product Name" />

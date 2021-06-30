@@ -3,6 +3,8 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.swing.*;
+
 public class Inventory {
 
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
@@ -51,19 +53,31 @@ public class Inventory {
     }
 
     public static void updatePart(int index, Part selectedPart) {
-
+        allParts.set(index, selectedPart);
     }
 
-    public static void updateProduct(int index, Product selectedProduct) {
-
+    public static void updateProduct(int index, Product newProduct) {
+        allProducts.set(index,newProduct);
     }
 
     public static boolean deletePart(Part selectedPart) {
-        return true;
+        if(allParts.contains(selectedPart)) {
+            allParts.remove(selectedPart);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public static boolean deleteProduct(Product selectedProduct) {
-        return true;
+        if(allProducts.contains(selectedProduct)) {
+            allProducts.remove(selectedProduct);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public static ObservableList<Part> getAllParts() {

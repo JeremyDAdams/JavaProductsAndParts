@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.javafx.charts.Legend;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Inventory;
+import model.Part;
+import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,9 +27,54 @@ public class MainMenuController implements Initializable {
     Stage stage;
     Parent scene;
 
+    //Parts table
+    @FXML
+    //I tried to use <Inventory> at first.
+    private TableView<Part> partsTableView;
+
+    @FXML
+    private TableColumn<Part, Integer> partsIdCol;
+
+    @FXML
+    private TableColumn<Part, String> partsNameCol;
+
+    @FXML
+    private TableColumn<Part, Integer> partsInvCol;
+
+    @FXML
+    private TableColumn<Part, Double> partsPriceCol;
+
+    //Products table
+
+    @FXML
+    private TableView<Product> productsTableView;
+
+    @FXML
+    private TableColumn<Product, Integer> prodIdCol;
+
+    @FXML
+    private TableColumn<Product, String> prodNameCol;
+
+    @FXML
+    private TableColumn<Product, Integer> prodInvCol;
+
+    @FXML
+    private TableColumn<Product, Double> prodPriceCol;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        partsTableView.setItems(Inventory.getAllParts());
+        partsIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partsNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partsInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partsPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        productsTableView.setItems(Inventory.getAllProducts());
+        prodIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        prodNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        prodInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        prodPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     @FXML
@@ -62,8 +114,5 @@ public class MainMenuController implements Initializable {
         System.exit(0);
     }
 
-    /*public void OnButtonAction(ActionEvent actionEvent) {
-        System.out.println("Button Was Clicked");
-        TheLabel.setText("You Clicked Dude!!!!");
-    }*/
+
 }

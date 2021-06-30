@@ -34,9 +34,11 @@ public class Main extends Application {
         Inventory.addPart(part2);
         Inventory.addProduct(product1);
 
+        /*
         //Testing adding
         System.out.println(part1.getPrice());
         System.out.println(product1.getName());
+
 
         //Testing getAlls
         System.out.println(Inventory.getAllParts());
@@ -50,7 +52,7 @@ public class Main extends Application {
         //Testing lookups with strings
         System.out.println(Inventory.lookupPart("Knob"));
         System.out.println(Inventory.lookupProduct("Radio"));
-
+        */
         launch(args);
     }
 }
