@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.InHouse;
+import model.Inventory;
+import model.OutSourced;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -41,7 +44,7 @@ public class AddPartController implements Initializable {
     @FXML
     private TextField partsHouseTxt;
 
-    //had an error here accidently using just "Button"
+    //had an error here accidentally using just "Button"
     @FXML
     private RadioButton addHouseBtn;
 
@@ -88,7 +91,7 @@ public class AddPartController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent event) throws IOException{
-/*
+
         try {
             int id = 0;
             String name = partsNameTxt.getText();
@@ -96,6 +99,9 @@ public class AddPartController implements Initializable {
             int stock = Integer.parseInt(partsInvTxt.getText());
             int min = Integer.parseInt(partsMinTxt.getText());
             int max = Integer.parseInt(partsMaxTxt.getText());
+            int machineId;
+            String companyName;
+            boolean partAdded = false;
 
             if(name.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -106,18 +112,41 @@ public class AddPartController implements Initializable {
                 if(min < max && stock <= max && stock >= min) {
                     if(addHouseBtn.isSelected()) {
                         try {
-                            int machineId = Integer.parseInt(partsHouseTxt.getText());
-
+                            machineId = Integer.parseInt(partsHouseTxt.getText());
+                            InHouse inHousePart = new InHouse(Inventory.createPartId(), name, price, stock, min, max, machineId);
+                            Inventory.addPart(inHousePart);
+                            partAdded = true;
+                        } catch (Exception e) {
+                            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                            alert2.setTitle("Error");
+                            alert2.setContentText("Please enter a valid value for each field.");
+                            alert2.showAndWait();
                         }
                     }
+                    if(addOutsourced.isSelected()) {
+                        companyName = partsHouseTxt.getText();
+                        OutSourced outSourcedPart = new OutSourced(Inventory.createProductId(), name, price, stock, min, max, companyName);
+                        Inventory.addPart(outSourcedPart);
+                        partAdded = true;
+                    }
+                    if(partAdded) {
+                        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+                        stage.setScene(new Scene(scene));
+                        stage.show();
+                    }
+                } else {
+                        Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                        alert2.setTitle("Error");
+                        alert2.setContentText("Inventory, max, and min most be compatible.");
+                        alert2.showAndWait();
                 }
             }
+        } catch(Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Error");
+            alert2.setContentText("Please enter a valid value for each field.");
+            alert2.showAndWait();
         }
-*/
-
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
     }
 }
