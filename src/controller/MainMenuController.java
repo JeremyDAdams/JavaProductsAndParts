@@ -26,7 +26,13 @@ public class MainMenuController implements Initializable {
 
     Stage stage;
     Parent scene;
+    public static Part partSelected;
+/*
+    public static partSelectedClass {
+        return partSelected;
+    }
 
+ */
     //Parts table
     @FXML
     //I tried to use <Inventory> at first.
@@ -87,6 +93,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionModifyPart(ActionEvent event) throws IOException {
+        partSelected = partsTableView.getSelectionModel().getSelectedItem();
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/ModifyPart.fxml"));
         stage.setScene(new Scene(scene));

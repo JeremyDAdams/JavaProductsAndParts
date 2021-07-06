@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import model.InHouse;
 import model.Inventory;
 import model.OutSourced;
+import model.Part;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class AddPartController implements Initializable {
     public Label addMachineOrCompanyLbl;
     Stage stage;
     Parent scene;
+
 
     @FXML
     private TextField partsIdTxt;
