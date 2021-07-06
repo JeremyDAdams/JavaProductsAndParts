@@ -1,16 +1,15 @@
 package controller;
 
 import com.sun.javafx.charts.Legend;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Inventory;
@@ -67,6 +66,9 @@ public class MainMenuController implements Initializable {
     @FXML
     private TableColumn<Product, Double> prodPriceCol;
 
+    @FXML
+    private TextField partSearch;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -94,10 +96,17 @@ public class MainMenuController implements Initializable {
     @FXML
     void onActionModifyPart(ActionEvent event) throws IOException {
         partSelected = partsTableView.getSelectionModel().getSelectedItem();
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyPart.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        if(partSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("A part must be selected.");
+            alert.showAndWait();
+        } else {
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/ModifyPart.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     @FXML
@@ -121,5 +130,43 @@ public class MainMenuController implements Initializable {
         System.exit(0);
     }
 
+    @FXML
+    public void onActionSearchPart(ActionEvent actionEvent) {
+        ObservableList<Part> unfilteredList = Inventory.getAllParts();
+        ObservableList<Part> filteredList = FXCollections.observableArrayList();
+        String searchBar = partSearch.getText();
 
+        for (Part part: unfilteredList) {
+            if (String.valueOf(part.getId()).contains(searchBar)) {
+                filteredList.add(part);
+            }
+            if (String.valueOf(part.getName()).contains(searchBar)) {
+                filteredList.add(part);
+            }
+        }
+        partsTableView.setItems(filteredList);
+
+        if (searchBar.isEmpty()) {
+            partsTableView.setItems(unfilteredList);
+        }
+
+        if (filteredList.size() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No matching parts found.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void onActionDeletePart(ActionEvent actionEvent) {
+        partSelected = partsTableView.getSelectionModel().getSelectedItem();
+        Inventory.deletePart(partSelected);
+        if (partSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("You must select a part to be deleted.");
+            alert.showAndWait();
+        }
+    }
 }
