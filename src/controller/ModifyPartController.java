@@ -6,12 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.InHouse;
+import model.Inventory;
 import model.OutSourced;
 import model.Part;
 
@@ -95,6 +93,65 @@ public class ModifyPartController implements Initializable {
         modMachineOrCompanyLbl.setText("Company Name");
     }
 
-    public void saveBtnClick(ActionEvent actionEvent) {
+    public void saveBtnClick(ActionEvent event) {
+        Part partSelected = MainMenuController.partSelected;
+        try {
+            int id = partSelected.getId();
+            String name = modPartName.getText();
+            Double price = Double.parseDouble(modPartPrice.getText());
+            int stock = Integer.parseInt(modPartInv.getText());
+            int min = Integer.parseInt(modPartMin.getText());
+            int max = Integer.parseInt(modPartMax.getText());
+            int machineId;
+            String companyName;
+            boolean partModded = false;
+
+            if(name.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please enter a valid value for each text field.");
+                alert.showAndWait();
+            } else {
+                if(min < max && stock <= max && stock >= min) {
+                    if(modHouseBtn.isSelected()) {
+                        try {
+                            machineId = Integer.parseInt(modPartMachine.getText());
+                            InHouse inHousePart = new InHouse(id, name, price, stock, min, max, machineId);
+                            Inventory.addPart(inHousePart);
+
+                            partModded = true;
+                        } catch (Exception e) {
+                            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                            alert2.setTitle("Error");
+                            alert2.setContentText("Please enter a valid value for each field.");
+                            alert2.showAndWait();
+                        }
+                    }
+                    if(modOutsourcedBtn.isSelected()) {
+                        companyName = modPartMachine.getText();
+                        OutSourced outSourcedPart = new OutSourced(id, name, price, stock, min, max, companyName);
+                        Inventory.addPart(outSourcedPart);
+                        partModded = true;
+                    }
+                    if(partModded) {
+                        Inventory.deletePart(partSelected);
+                        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+                        stage.setScene(new Scene(scene));
+                        stage.show();
+                    }
+                } else {
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                    alert2.setTitle("Error");
+                    alert2.setContentText("Inventory, max, and min most be compatible.");
+                    alert2.showAndWait();
+                }
+            }
+        } catch(Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Error");
+            alert2.setContentText("Please enter a valid value for each field.");
+            alert2.showAndWait();
+        }
     }
 }

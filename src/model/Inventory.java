@@ -69,7 +69,7 @@ public class Inventory {
     }
 
     public static void updateProduct(int index, Product newProduct) {
-        allProducts.set(index,newProduct);
+        allProducts.set(index, newProduct);
     }
 
     public static boolean deletePart(Part selectedPart) {
