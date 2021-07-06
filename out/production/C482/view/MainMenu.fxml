@@ -32,7 +32,7 @@
                                     <Insets bottom="3.0" left="20.0" top="15.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" layoutX="-8.0" layoutY="-6.0" prefHeight="28.0" prefWidth="147.0" promptText="Search by Part ID or Name" translateX="280.0" translateY="10.0">
+                              <TextField fx:id="partSearch" alignment="CENTER" layoutX="-8.0" layoutY="-6.0" onAction="#onActionSearchPart" prefHeight="28.0" prefWidth="147.0" promptText="Search by Part ID or Name" translateX="280.0" translateY="10.0">
                                  <padding>
                                     <Insets left="2.0" right="2.0" />
                                  </padding>
@@ -42,7 +42,7 @@
                               </TextField>
                               <Button layoutX="272.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionAddPart" text="Add" />
                               <Button layoutX="320.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionModifyPart" text="Modify" />
-                              <Button layoutX="378.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
+                              <Button layoutX="378.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionDeletePart" text="Delete" />
                            </children>
                         </Pane>
                      </children>
@@ -64,7 +64,7 @@
                                     <Insets bottom="3.0" left="20.0" top="15.0" />
                                  </padding>
                               </Label>
-                              <TextField alignment="CENTER" layoutX="-28.0" layoutY="-6.0" prefHeight="28.0" prefWidth="167.0" promptText="Search by Product ID or Name" translateX="280.0" translateY="10.0">
+                              <TextField fx:id="productSearch" alignment="CENTER" layoutX="-28.0" layoutY="-6.0" prefHeight="28.0" prefWidth="167.0" promptText="Search by Product ID or Name" translateX="280.0" translateY="10.0">
                                  <padding>
                                     <Insets left="2.0" right="2.0" />
                                  </padding>
@@ -74,7 +74,7 @@
                               </TextField>
                               <Button layoutX="272.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionAddProduct" text="Add" />
                               <Button layoutX="320.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionModifyProduct" text="Modify" />
-                              <Button layoutX="376.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
+                              <Button layoutX="376.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionDeleteProduct" text="Delete" />
                            </children>
                         </Pane>
                      </children>

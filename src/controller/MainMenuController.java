@@ -26,6 +26,7 @@ public class MainMenuController implements Initializable {
     Stage stage;
     Parent scene;
     public static Part partSelected;
+    public static Product productSelected;
 /*
     public static partSelectedClass {
         return partSelected;
@@ -166,6 +167,18 @@ public class MainMenuController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("You must select a part to be deleted.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void onActionDeleteProduct(ActionEvent actionEvent) {
+        productSelected = productsTableView.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(productSelected);
+        if (productSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("You must select a product to be deleted.");
             alert.showAndWait();
         }
     }

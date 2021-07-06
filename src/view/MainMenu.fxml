@@ -74,7 +74,7 @@
                               </TextField>
                               <Button layoutX="272.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionAddProduct" text="Add" />
                               <Button layoutX="320.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionModifyProduct" text="Modify" />
-                              <Button layoutX="376.0" layoutY="256.0" mnemonicParsing="false" text="Delete" />
+                              <Button layoutX="376.0" layoutY="256.0" mnemonicParsing="false" onAction="#onActionDeleteProduct" text="Delete" />
                            </children>
                         </Pane>
                      </children>
