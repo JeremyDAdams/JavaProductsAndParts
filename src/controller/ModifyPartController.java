@@ -13,7 +13,6 @@ import model.Inventory;
 import model.OutSourced;
 import model.Part;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

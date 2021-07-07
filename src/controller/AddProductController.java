@@ -57,9 +57,6 @@ public class AddProductController implements Initializable {
     private TextField partSearch;
 
     @FXML
-    private TextField prodId;
-
-    @FXML
     private TextField prodName;
 
     @FXML

@@ -10,14 +10,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
-        //primaryStage.setTitle("Howdy World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-
+/*
         int partId = Inventory.createPartId();
         //sample parts
         InHouse part1 = new InHouse(partId, "Knob", 39.99, 5, 3, 8, 13);
@@ -44,7 +43,7 @@ public class Main extends Application {
 
         Inventory.addProduct(product2);
 
-        /*
+
         //Testing adding
         System.out.println(part1.getPrice());
         System.out.println(product1.getName());

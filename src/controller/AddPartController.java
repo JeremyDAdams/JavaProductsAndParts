@@ -11,22 +11,15 @@ import javafx.stage.Stage;
 import model.InHouse;
 import model.Inventory;
 import model.OutSourced;
-import model.Part;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.EventObject;
 import java.util.ResourceBundle;
 
 public class AddPartController implements Initializable {
     public Label addMachineOrCompanyLbl;
     Stage stage;
     Parent scene;
-
-
-    @FXML
-    private TextField partsIdTxt;
 
     @FXML
     private TextField partsNameTxt;
@@ -95,7 +88,6 @@ public class AddPartController implements Initializable {
     public void saveBtnClick(ActionEvent event) throws IOException{
 
         try {
-            int id = 0;
             String name = partsNameTxt.getText();
             Double price = Double.parseDouble(partsPriceTxt.getText());
             int stock = Integer.parseInt(partsInvTxt.getText());
@@ -127,7 +119,7 @@ public class AddPartController implements Initializable {
                     }
                     if(addOutsourced.isSelected()) {
                         companyName = partsHouseTxt.getText();
-                        OutSourced outSourcedPart = new OutSourced(Inventory.createProductId(), name, price, stock, min, max, companyName);
+                        OutSourced outSourcedPart = new OutSourced(Inventory.createPartId(), name, price, stock, min, max, companyName);
                         Inventory.addPart(outSourcedPart);
                         partAdded = true;
                     }
