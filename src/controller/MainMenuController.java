@@ -119,10 +119,18 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionModifyProduct(ActionEvent event) throws IOException {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/ModifyProduct.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        productSelected = productsTableView.getSelectionModel().getSelectedItem();
+        if(productSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("A part must be selected.");
+            alert.showAndWait();
+        } else {
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/ModifyProduct.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     @FXML

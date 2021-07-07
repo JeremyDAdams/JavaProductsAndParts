@@ -11,9 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Inventory;
-import model.Part;
-import model.Product;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +22,6 @@ public class AddProductController implements Initializable {
     Parent scene;
     public static Part partSelected;
     private ObservableList<Part> partsAssociated = FXCollections.observableArrayList();
-
 
     @FXML
     private TableView<Part> partsTableView;
@@ -101,6 +98,55 @@ public class AddProductController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {
+        try {
+            int id = 0;
+            String name = prodName.getText();
+            Double price = Double.parseDouble(prodPrice.getText());
+            int stock = Integer.parseInt(prodInv.getText());
+            int min = Integer.parseInt(prodMin.getText());
+            int max = Integer.parseInt(prodMax.getText());
+            boolean productAdded = false;
+
+            if(name.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please enter a valid value for each text field.");
+                alert.showAndWait();
+            } else {
+                if(min < max && stock <= max && stock >= min) {
+                    try {
+                        Product product = new Product(Inventory.createProductId(), name, price, stock, min, max);
+                        for (Part part : partsAssociated) {
+                            product.addAssociatedPart(part);
+                        }
+                        Inventory.addProduct(product);
+                        productAdded = true;
+                    } catch (Exception e) {
+                        Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                        alert2.setTitle("Error");
+                        alert2.setContentText("Please enter a valid value for each field.");
+                        alert2.showAndWait();
+                    }
+
+                    if(productAdded) {
+                        stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
+                        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+                        stage.setScene(new Scene(scene));
+                        stage.show();
+                    }
+                } else {
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                    alert2.setTitle("Error");
+                    alert2.setContentText("Inventory, max, and min most be compatible.");
+                    alert2.showAndWait();
+                }
+            }
+        } catch(Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Error");
+            alert2.setContentText("Please enter a valid value for each field.");
+            alert2.showAndWait();
+        }
     }
 
     public void removeBtnClick(ActionEvent actionEvent) {
