@@ -39,27 +39,30 @@ public class Inventory {
     }
 
     public static Product lookupProduct(int id) {
-        for(Product product : allProducts) {
-            if(product.getId() == id)
+        for (Product product : allProducts) {
+            if(product.getId() == id) {
                 return product;
+            }
         }
         return null;
     }
 
     public static ObservableList<Part> lookupPart(String name) {
         ObservableList<Part> partsMatching = FXCollections.observableArrayList();
-        for(Part part : allParts) {
-            if(part.getName().equals(name))
+        for (Part part : allParts) {
+            if(String.valueOf(part.getName()).contains(name)) {
                 partsMatching.add(part);
+            }
         }
         return partsMatching;
     }
 
     public static ObservableList<Product> lookupProduct(String name) {
         ObservableList<Product> productsMatching = FXCollections.observableArrayList();
-        for(Product product : allProducts) {
-            if(product.getName().equals(name))
+        for (Product product : allProducts) {
+            if(String.valueOf(product.getName()).contains(name)) {
                 productsMatching.add(product);
+            }
         }
         return productsMatching;
     }

@@ -28,12 +28,7 @@ public class MainMenuController implements Initializable {
     Parent scene;
     public static Part partSelected;
     public static Product productSelected;
-/*
-    public static partSelectedClass {
-        return partSelected;
-    }
 
- */
     //Parts table
     @FXML
     //I tried to use <Inventory> at first.
@@ -141,6 +136,9 @@ public class MainMenuController implements Initializable {
         ObservableList<Part> filteredList = FXCollections.observableArrayList();
         String searchBar = partSearch.getText();
 
+        //I couldn't get this to work so I just wrote logic to execute the search here in the controller.
+        //filteredList.add((Part) Inventory.lookupPart(searchBar));
+
         for (Part part: unfilteredList) {
             if (String.valueOf(part.getId()).contains(searchBar)) {
                 filteredList.add(part);
@@ -149,6 +147,7 @@ public class MainMenuController implements Initializable {
                 filteredList.add(part);
             }
         }
+
         partsTableView.setItems(filteredList);
 
         if (searchBar.isEmpty()) {
