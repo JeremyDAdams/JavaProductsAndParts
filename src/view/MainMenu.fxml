@@ -64,7 +64,7 @@
                                     <Insets bottom="3.0" left="20.0" top="15.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="productSearch" alignment="CENTER" layoutX="-28.0" layoutY="-6.0" prefHeight="28.0" prefWidth="167.0" promptText="Search by Product ID or Name" translateX="280.0" translateY="10.0">
+                              <TextField fx:id="productSearch" alignment="CENTER" layoutX="-28.0" layoutY="-6.0" onAction="#onActionSearchProduct" prefHeight="28.0" prefWidth="167.0" promptText="Search by Product ID or Name" translateX="280.0" translateY="10.0">
                                  <padding>
                                     <Insets left="2.0" right="2.0" />
                                  </padding>

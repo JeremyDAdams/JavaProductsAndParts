@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
+
     //public Label TheLabel;
 
     Stage stage;
@@ -69,6 +70,9 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private TextField partSearch;
+
+    @FXML
+    private TextField productSearch;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -158,6 +162,35 @@ public class MainMenuController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    public void onActionSearchProduct(ActionEvent actionEvent) {
+        ObservableList<Product> unfilteredList = Inventory.getAllProducts();
+        ObservableList<Product> filteredList = FXCollections.observableArrayList();
+        String searchBar = productSearch.getText();
+
+        for (Product product: unfilteredList) {
+            if (String.valueOf(product.getId()).contains(searchBar)) {
+                filteredList.add(product);
+            }
+            if (String.valueOf(product.getName()).contains(searchBar)) {
+                filteredList.add(product);
+            }
+        }
+        productsTableView.setItems(filteredList);
+
+        if (searchBar.isEmpty()) {
+            productsTableView.setItems(unfilteredList);
+        }
+
+        if (filteredList.size() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No matching products found.");
+            alert.showAndWait();
+        }
+    }
+
 
     @FXML
     public void onActionDeletePart(ActionEvent actionEvent) {
