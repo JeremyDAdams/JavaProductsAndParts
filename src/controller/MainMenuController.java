@@ -17,6 +17,7 @@ import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
@@ -201,13 +202,21 @@ public class MainMenuController implements Initializable {
     @FXML
     public void onActionDeletePart(ActionEvent actionEvent) {
         partSelected = partsTableView.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(partSelected);
         if (partSelected == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("You must select a part to be deleted.");
             alert.showAndWait();
         }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Warning");
+        alert.setContentText("Are you sure you want to delete the part: " + partSelected.getName() + "?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Inventory.deletePart(partSelected);
+        }
+
     }
 
     @FXML
@@ -227,7 +236,14 @@ public class MainMenuController implements Initializable {
                 alert.setContentText("A product with associated parts may not be deleted.");
                 alert.showAndWait();
             } else {
-                Inventory.deleteProduct(productSelected);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Warning");
+                alert.setContentText("Are you sure you want to delete the product: " + productSelected.getName() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    Inventory.deleteProduct(productSelected);
+                }
             }
         }
     }

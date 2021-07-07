@@ -15,6 +15,7 @@ import model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddProductController implements Initializable {
@@ -154,8 +155,15 @@ public class AddProductController implements Initializable {
             alert.setContentText("A part must be selected.");
             alert.showAndWait();
         } else {
-            partsAssociated.remove(partSelected);
-            associatedPartsTableView.setItems(partsAssociated);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Warning");
+            alert.setContentText("Are you sure you want to remove the part: " + partSelected.getName() + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                partsAssociated.remove(partSelected);
+                associatedPartsTableView.setItems(partsAssociated);
+            }
         }
     }
 

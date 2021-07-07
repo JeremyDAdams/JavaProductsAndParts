@@ -16,7 +16,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-/*
+
         int partId = Inventory.createPartId();
         //sample parts
         InHouse part1 = new InHouse(partId, "Knob", 39.99, 5, 3, 8, 13);
@@ -61,7 +61,7 @@ public class Main extends Application {
         //Testing lookups with strings
         System.out.println(Inventory.lookupPart("Knob"));
         System.out.println(Inventory.lookupProduct("Radio"));
-        */
+
 
         launch(args);
     }
