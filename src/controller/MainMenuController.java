@@ -214,12 +214,22 @@ public class MainMenuController implements Initializable {
     @FXML
     public void onActionDeleteProduct(ActionEvent actionEvent) {
         productSelected = productsTableView.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(productSelected);
         if (productSelected == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("You must select a product to be deleted.");
             alert.showAndWait();
+        } else {
+            ObservableList<Part> partsAssociated = productSelected.getAllAssociatedParts();
+
+            if (partsAssociated.size() >= 1) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("A product with associated parts may not be deleted.");
+                alert.showAndWait();
+            } else {
+                Inventory.deleteProduct(productSelected);
+            }
         }
     }
 }

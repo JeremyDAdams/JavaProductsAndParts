@@ -13,8 +13,6 @@ public class Main extends Application {
         //primaryStage.setTitle("Howdy World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
-
-
     }
 
 
@@ -29,20 +27,21 @@ public class Main extends Application {
         partId = Inventory.createPartId();
 
         OutSourced part3 = new OutSourced(partId, "Knobs", 12.00, 32, 19, 50, "Knob Shop");
-        partId = Inventory.createPartId();
+
 
         int productId = Inventory.createProductId();
         //sample products
         Product product1 = new Product(productId, "Radio", 500.50, 12, 5, 70);
         productId = Inventory.createProductId();
+        Inventory.addProduct(product1);
 
         Product product2 = new Product(productId, "TV", 780.50, 15, 5, 80);
-        productId = Inventory.createProductId();
+        product2.addAssociatedPart(part2);
 
         Inventory.addPart(part1);
         Inventory.addPart(part2);
         Inventory.addPart(part3);
-        Inventory.addProduct(product1);
+
         Inventory.addProduct(product2);
 
         /*
@@ -64,6 +63,8 @@ public class Main extends Application {
         System.out.println(Inventory.lookupPart("Knob"));
         System.out.println(Inventory.lookupProduct("Radio"));
         */
+
         launch(args);
     }
+
 }

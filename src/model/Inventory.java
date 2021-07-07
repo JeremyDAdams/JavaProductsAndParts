@@ -67,17 +67,17 @@ public class Inventory {
         return productsMatching;
     }
 
-    public static void updatePart(int index, Part selectedPart) {
-        allParts.set(index, selectedPart);
+    public static void updatePart(int index, Part partSelected) {
+        allParts.set(index, partSelected);
     }
 
     public static void updateProduct(int index, Product newProduct) {
         allProducts.set(index, newProduct);
     }
 
-    public static boolean deletePart(Part selectedPart) {
-        if(allParts.contains(selectedPart)) {
-            allParts.remove(selectedPart);
+    public static boolean deletePart(Part partSelected) {
+        if(allParts.contains(partSelected)) {
+            allParts.remove(partSelected);
             return true;
         }
         else {
@@ -85,9 +85,9 @@ public class Inventory {
         }
     }
 
-    public static boolean deleteProduct(Product selectedProduct) {
-        if(allProducts.contains(selectedProduct)) {
-            allProducts.remove(selectedProduct);
+    public static boolean deleteProduct(Product productSelected) {
+        if(allProducts.contains(productSelected)) {
+            allProducts.remove(productSelected);
             return true;
         }
         else {

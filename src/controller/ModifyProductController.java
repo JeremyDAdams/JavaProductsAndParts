@@ -1,13 +1,19 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Inventory;
+import model.Part;
+import model.Product;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,12 +22,85 @@ import java.util.ResourceBundle;
 public class ModifyProductController implements Initializable {
     Stage stage;
     Parent scene;
+    public static Part partSelected;
 
+    private ObservableList<Part> partsAssociated = FXCollections.observableArrayList();
+
+    @FXML
+    private TextField modProdId;
+
+    @FXML
+    private TextField modProdName;
+
+    @FXML
+    private TextField modProdInv;
+
+    @FXML
+    private TextField modProdPrice;
+
+    @FXML
+    private TextField modProdMax;
+
+    @FXML
+    private TextField modProdMin;
+
+    @FXML
+    private TableView<Part> partsTableView;
+
+    @FXML
+    private TableColumn<Part, Integer> partsIdCol;
+
+    @FXML
+    private TableColumn<Part, String> partsNameCol;
+
+    @FXML
+    private TableColumn<Part, Integer> partsInvCol;
+
+    @FXML
+    private TableColumn<Part, Double> partsPriceCol;
+
+    @FXML
+    private TableView<Part> associatedPartsTableView;
+
+    @FXML
+    private TableColumn<Part, Integer> associatedPartsIdCol;
+
+    @FXML
+    private TableColumn<Part, String> associatedPartsNameCol;
+
+    @FXML
+    private TableColumn<Part, Integer> associatedPartsInvCol;
+
+    @FXML
+    private TableColumn<Part, Double> associatedPartsPriceCol;
+
+    @FXML
+    private TextField partSearch;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        Product productSelected = MainMenuController.productSelected;
+        partsAssociated = productSelected.getAllAssociatedParts();
 
+        modProdId.setText(String.valueOf(productSelected.getId()));
+        modProdName.setText(productSelected.getName());
+        modProdInv.setText(String.valueOf(productSelected.getStock()));
+        modProdPrice.setText(String.valueOf(productSelected.getPrice()));
+        modProdMax.setText(String.valueOf(productSelected.getMax()));
+        modProdMin.setText(String.valueOf(productSelected.getMin()));
+
+        partsTableView.setItems(Inventory.getAllParts());
+        partsIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partsNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partsInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partsPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        associatedPartsTableView.setItems(partsAssociated);
+        associatedPartsIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        associatedPartsNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        associatedPartsInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        associatedPartsPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     @FXML
@@ -33,11 +112,110 @@ public class ModifyProductController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {
+        try {
+            Product productSelected = MainMenuController.productSelected;
+            int id = productSelected.getId();
+            String name = modProdName.getText();
+            Double price = Double.parseDouble(modProdPrice.getText());
+            int stock = Integer.parseInt(modProdInv.getText());
+            int min = Integer.parseInt(modProdMin.getText());
+            int max = Integer.parseInt(modProdMax.getText());
+            boolean productAdded = false;
+
+            if(name.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please enter a valid value for each text field.");
+                alert.showAndWait();
+            } else {
+                if(min < max && stock <= max && stock >= min) {
+                    try {
+                        Product product = new Product(id, name, price, stock, min, max);
+                        for (Part part : partsAssociated) {
+                            product.addAssociatedPart(part);
+                        }
+                        Inventory.addProduct(product);
+                        Inventory.deleteProduct(productSelected);
+                        productAdded = true;
+                    } catch (Exception e) {
+                        Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                        alert2.setTitle("Error");
+                        alert2.setContentText("Please enter a valid value for each field.");
+                        alert2.showAndWait();
+                    }
+
+                    if(productAdded) {
+                        stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
+                        scene = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+                        stage.setScene(new Scene(scene));
+                        stage.show();
+                    }
+                } else {
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                    alert2.setTitle("Error");
+                    alert2.setContentText("Inventory, max, and min most be compatible.");
+                    alert2.showAndWait();
+                }
+            }
+        } catch(Exception e) {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Error");
+            alert2.setContentText("Please enter a valid value for each field.");
+            alert2.showAndWait();
+        }
     }
 
     public void removeBtnClick(ActionEvent actionEvent) {
+        partSelected = associatedPartsTableView.getSelectionModel().getSelectedItem();
+        if (partSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("A part must be selected.");
+            alert.showAndWait();
+        } else {
+            partsAssociated.remove(partSelected);
+            associatedPartsTableView.setItems(partsAssociated);
+        }
     }
 
     public void addBtnClick(ActionEvent actionEvent) {
+        partSelected = partsTableView.getSelectionModel().getSelectedItem();
+        if (partSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("A part must be selected.");
+            alert.showAndWait();
+        } else {
+            partsAssociated.add(partSelected);
+            associatedPartsTableView.setItems(partsAssociated);
+        }
+    }
+
+    public void onActionSearchPart(ActionEvent actionEvent) {
+        ObservableList<Part> unfilteredList = Inventory.getAllParts();
+        ObservableList<Part> filteredList = FXCollections.observableArrayList();
+        String searchBar = partSearch.getText();
+
+        for (Part part: unfilteredList) {
+            if (String.valueOf(part.getId()).contains(searchBar)) {
+                filteredList.add(part);
+            }
+            if (String.valueOf(part.getName()).contains(searchBar)) {
+                filteredList.add(part);
+            }
+        }
+
+        partsTableView.setItems(filteredList);
+
+        if (searchBar.isEmpty()) {
+            partsTableView.setItems(unfilteredList);
+        }
+
+        if (filteredList.size() == 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No matching parts found.");
+            alert.showAndWait();
+        }
     }
 }
